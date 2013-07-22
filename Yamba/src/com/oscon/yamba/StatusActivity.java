@@ -23,7 +23,8 @@ public class StatusActivity extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				Log.d("StatusActivity","onClicked!");
+				String status = editStatus.getText().toString();
+				Log.d("StatusActivity","onClicked with status: "+status);
 			}
 		});
 	}

@@ -1,6 +1,7 @@
 package com.oscon.yamba;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +37,13 @@ public class StatusActivity extends Activity {
 		});
 	}
 	
-	private static class PostTask extends AsyncTask<String, Void, String> {
+	private class PostTask extends AsyncTask<String, Void, String> {
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(StatusActivity.this, "Posting", "Please wait...");
+		}
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -50,6 +57,11 @@ public class StatusActivity extends Activity {
 				e.printStackTrace();
 				return "Failed to post";
 			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			dialog.dismiss();
 		}
 		
 	}
